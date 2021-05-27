@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.flyjava.data.dao.TbHostProductMapper" >
+  <resultMap id="BaseResultMap" type="com.flyjava.data.pojo.TbHostProduct" >
+    <id column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="host_id" property="hostId" jdbcType="BIGINT" />
+    <result column="product_cat_id" property="productCatId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <!--返回结果为 Product   -->
+  <resultMap id="myResultMap" type="com.flyjava.data.pojo.Product" >
+    <id column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="host_id" property="hostId" jdbcType="BIGINT" />
+    <result column="product_cat_id" property="productCatId" jdbcType="INTEGER" />
+    <result column="product_Name" property="productName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    product_id, host_id, product_cat_id, status, created, updated
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.flyjava.data.pojo.TbHostProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_host_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_host_product
+    where product_id = #{productId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_host_product
+    where product_id = #{productId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.flyjava.data.pojo.TbHostProductExample" >
+    delete from tb_host_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.flyjava.data.pojo.TbHostProduct" >
+    insert into tb_host_product (product_id, host_id, product_cat_id, 
+      status, created, updated
+      )
+    values (#{productId,jdbcType=BIGINT}, #{hostId,jdbcType=BIGINT}, #{productCatId,jdbcType=BIGINT}, 
+      #{status,jdbcType=TINYINT}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.flyjava.data.pojo.TbHostProduct" >
+    insert into tb_host_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="hostId != null" >
+        host_id,
+      </if>
+      <if test="productCatId != null" >
+        product_cat_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="hostId != null" >
+        #{hostId,jdbcType=BIGINT},
+      </if>
+      <if test="productCatId != null" >
+        #{productCatId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.flyjava.data.pojo.TbHostProductExample" resultType="java.lang.Integer" >
+    select count(*) from tb_host_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_host_product
+    <set >
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=BIGINT},
+      </if>
+      <if test="record.hostId != null" >
+        host_id = #{record.hostId,jdbcType=BIGINT},
+      </if>
+      <if test="record.productCatId != null" >
+        product_cat_id = #{record.productCatId,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updated != null" >
+        updated = #{record.updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_host_product
+    set product_id = #{record.productId,jdbcType=BIGINT},
+      host_id = #{record.hostId,jdbcType=BIGINT},
+      product_cat_id = #{record.productCatId,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=TINYINT},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.flyjava.data.pojo.TbHostProduct" >
+    update tb_host_product
+    <set >
+      <if test="hostId != null" >
+        host_id = #{hostId,jdbcType=BIGINT},
+      </if>
+      <if test="productCatId != null" >
+        product_cat_id = #{productCatId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.flyjava.data.pojo.TbHostProduct" >
+    update tb_host_product
+    set host_id = #{hostId,jdbcType=BIGINT},
+      product_cat_id = #{productCatId,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where product_id = #{productId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  <!-- 根据主机ID,查询,返回product -->
+  <select id="selectProductByHostId" resultMap="myResultMap" parameterType="java.lang.Long" >
+    select  a.product_id,a.product_cat_id, a.host_id,b.name as product_name, a.status, a.created, a.updated  
+    from tb_host_product a left join tb_product_cat b
+    on a.product_cat_id=b.product_cat_id 
+    where host_id = #{hostId,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 根据用户id 把用户所有的productId  productId在TbHostProduct对象中 -->
+  <select id="getHostProductByUserId"  resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select * from tb_host_product where host_id in 
+	(select  host_id from tb_user_host where user_id =#{userId} and `status`=1)
+  </select>
+</mapper>

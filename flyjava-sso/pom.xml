@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.flyjava</groupId>
+		<artifactId>flyjava-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.flyjava</groupId>
+	<artifactId>flyjava-sso</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>flyjava-sso-interface</module>
+		<module>flyjava-sso-service</module>
+		<module>flyjava-sso-dao</module>
+		<module>flyjava-sso-pojo</module>
+	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>com.flyjava</groupId>
+			<artifactId>flyjava-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<path>/</path>
+					<port>8083</port>
+					<!-- <url>http://39.107.234.81:8083/manager/text</url> -->
+					<url>http://172.16.74.211:8083/manager/text</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
